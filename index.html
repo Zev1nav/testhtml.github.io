@@ -1,35 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head><style id="stndz-style"></style>
-    <!-- s : meta head -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Kompas.com - Berita Indonesia terkini terpercaya, dan terpopuler, politik, ekonomi, tekno, otomotif, dan olahraga ditulis lengkap dan akurat.">
-    <meta name="author" content="PT. Kompas Cyber Media">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Hello WebXR!</title>
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#000">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#000">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- All -->
-    <meta name="theme-color" content="#000">
-    <meta name="msapplication-navbutton-color" content="#000">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#000">
-
-    <title>Berita Terkini Hari Ini, Kabar Akurat Terpercaya - Kompas.com</title>
-    <style>
-    img {
-        width: 100%;
-    }
-    </style>
+  <!-- three.js -->
+  <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
 </head>
 <body>
-    <a href="kompascom://subscription" target="_blank">
-        <img src="https://asset.kompas.com/data/photo/2021/10/11/6163afecdabde.png" alt="Sumpah Pemuda 2021">
-    </a>
 
+<!-- Starting an immersive WebXR session requires user interaction.
+    We start this one with a simple button. -->
+<button onclick="activateXR()">Start Hello WebXR</button>
+<script>
+async function activateXR() {
+  // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
+  const canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
+  const gl = canvas.getContext("webgl", {xrCompatible: true});
+
+  // To be continued in upcoming steps.
+}
+</script>
 </body>
 </html>
