@@ -28,8 +28,8 @@
             height: 100%;
             display: block;
         }
-        #play-button {
-            position: absolute;
+        #play-container {
+            position: fixed;
             top: 1rem;
             right: 1rem;
             z-index: 10;
@@ -38,13 +38,19 @@
 </head>
 <body>
 <div class="container">
+    <div id="play-container">
+        <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>
+    </div>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-    <a-scene embedded vr-mode-ui="enabled: false"
-             arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene
+            embedded vr-mode-ui="enabled: false"
+            arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+            info-message="htmlSrc: #play">
         <a-assets>
             <a-asset-item id="animated-asset-1" src="asset/3d/survivor/Male Survivor 1 .glb"></a-asset-item>
             <a-asset-item id="animated-asset-2" src="asset/3d/survivor/Male Survivor 2 .glb"></a-asset-item>
-            <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" preload="auto" loop autoplay></audio>
+            <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" preload loop autoplay></audio>
+            <a-asset-item id="play"></a-asset-item>
         </a-assets>
 
         <a-marker type='barcode' value='1'>
@@ -68,35 +74,34 @@
         </a-marker>
 
         <a-camera></a-camera>
-        <a-entity sound="src: #birthday-song;"></a-entity>
+<!--        <a-entity sound="src: #birthday-song;"></a-entity>-->
     </a-scene>
-    <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>
 </div>
 <script>
-    const audio = document.querySelector('audio');
-    const promise = audio.play();
+    // const audio = document.querySelector('audio');
+    // const promise = audio.play();
+    //
+    // if (promise !== undefined) {
+    //     promise.then(_ => {
+    //         // Autoplay started!
+    //     }).catch(() => {
+    //         // Autoplay isn't allowed!
+    //         // Mute video and try to play again
+    //         audio.muted = true;
+    //         audio.play();
+    //
+    //         // Show something in the UI that the video is muted
+    //     });
+    // }
 
-    if (promise !== undefined) {
-        promise.then(_ => {
-            // Autoplay started!
-        }).catch(() => {
-            // Autoplay isn't allowed!
-            // Mute video and try to play again
-            audio.muted = true;
-            audio.play();
-
-            // Show something in the UI that the video is muted
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const playButton = document.querySelector('#play-button');
-        const soundEntity = document.querySelector('a-entity[sound]');
-
-        playButton.addEventListener('click', () => {
-            soundEntity.components.sound.playSound();
-        });
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const playButton = document.querySelector('#play-button');
+    //     const soundEntity = document.querySelector('a-entity[sound]');
+    //
+    //     playButton.addEventListener('click', () => {
+    //         soundEntity.components.sound.playSound();
+    //     });
+    // });
 </script>
 </body>
 </html>
