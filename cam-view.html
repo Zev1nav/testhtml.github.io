@@ -5,13 +5,14 @@
     <title>CamView</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<!--    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>-->
+
     <script src="https://cdn.tailwindcss.com"></script>
 <!--    <script src="script/button-play.js"></script>-->
     <style>
-        html, body {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
             overflow: hidden;
             font-family: 'Inter', sans-serif;
         }
@@ -38,11 +39,10 @@
 </head>
 <body>
 <!--<div class="container">-->
-<div>
+<!--<div>-->
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene
-            embedded xr-mode-ui="enabled: false"
-            arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+            embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
 <!--            button-play>-->
         <a-assets>
             <a-asset-item id="asset-1" src="asset/3d/chocolate-splash/Chocolate_Splash_Free_005.gltf"></a-asset-item>
@@ -80,11 +80,12 @@
             </a-entity>
         </a-marker>
 
-        <a-camera></a-camera>
+        <a-entity camera></a-entity>
+
         <a-entity id="entity-sound" sound="src: #birthday-song;"></a-entity>
     </a-scene>
 <!--    <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>-->
-</div>
+<!--</div>-->
 <script>
     // const audio = document.querySelector('audio');
     // const promise = audio.play();
