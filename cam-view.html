@@ -13,14 +13,22 @@
             margin: 0;
             overflow: hidden;
         }
-        /*.container {*/
-        /*    position: relative;*/
-        /*    width: 100vw;*/
-        /*    height: 100vh;*/
-        /*    display: flex;*/
-        /*    justify-content: center;*/
-        /*    align-items: center;*/
-        /*}*/
+        button {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
         /*a-camera {*/
         /*    width: 100%;*/
         /*    height: 100%;*/
@@ -35,7 +43,7 @@
     </style>
 </head>
 <body>
-<!--<div class="container">-->
+<div class="container">
 <!--<div>-->
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene
@@ -81,7 +89,8 @@
 <!--        <a-entity id="entity-sound" sound="src: #birthday-song;"></a-entity>-->
     </a-scene>
 <!--    <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>-->
-<!--</div>-->
+    <button id="play-button" type="button" onclick="alert('Hello World!')"></button>
+</div>
 <script>
     // const audio = document.querySelector('audio');
     // const promise = audio.play();
