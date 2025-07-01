@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, inital-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>CamView</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -12,29 +12,28 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
             overflow: hidden;
             font-family: 'Inter', sans-serif;
         }
-        .container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /*.container {*/
+        /*    position: relative;*/
+        /*    width: 100vw;*/
+        /*    height: 100vh;*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*}*/
         /*a-camera {*/
         /*    width: 100%;*/
         /*    height: 100%;*/
         /*    display: block;*/
         /*}*/
-        #play-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 10;
-        }
+        /*#play-container {*/
+        /*    position: fixed;*/
+        /*    top: 1rem;*/
+        /*    right: 1rem;*/
+        /*    z-index: 10;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -49,7 +48,6 @@
             <a-asset-item id="animated-asset-1" src="asset/3d/survivor/Male Survivor 1 .glb"></a-asset-item>
             <a-asset-item id="animated-asset-2" src="asset/3d/survivor/Male Survivor 2 .glb"></a-asset-item>
             <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" loop></audio>
-            <a-asset-item id="play"></a-asset-item>
         </a-assets>
 
         <a-marker type='barcode' value='1'>
@@ -82,7 +80,7 @@
 
         <a-entity camera></a-entity>
 
-        <a-entity id="entity-sound" sound="src: #birthday-song;"></a-entity>
+<!--        <a-entity id="entity-sound" sound="src: #birthday-song;"></a-entity>-->
     </a-scene>
 <!--    <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>-->
 <!--</div>-->
