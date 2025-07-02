@@ -5,6 +5,7 @@
     <title>CamView</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/c-frame/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <!--    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>-->
 <!--    <script src="script/button-play.js"></script>-->
 
@@ -14,7 +15,7 @@
             overflow: hidden;
         }
         button {
-            position: absolute;
+            position: fixed;
             bottom: 20px;
             left: 50%;
             -ms-transform: translateX(-50%);
@@ -27,10 +28,9 @@
         .container {
             position: relative;
             width: 100vw;
-            height: 100vh;
+            height: 100dvh;
         }
         a-scene {
-            position: absolute;
             width: 100%;
             height: 100%;
         }
@@ -52,13 +52,14 @@
 <!--<div>-->
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene xr-mode-ui="enabled: false;"
-            embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+             arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+             loading-screen="dotsColor: white; backgroundColor: black">
 <!--            button-play>-->
         <a-assets>
             <a-asset-item id="asset-1" src="asset/3d/chocolate-splash/Chocolate_Splash_Free_005.gltf"></a-asset-item>
             <a-asset-item id="animated-asset-1" src="asset/3d/survivor/Male Survivor 1 .glb"></a-asset-item>
             <a-asset-item id="animated-asset-2" src="asset/3d/survivor/Male Survivor 2 .glb"></a-asset-item>
-            <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" preload="auto" loop autoplay></audio>
+            <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" preload="auto" loop></audio>
         </a-assets>
 
         <a-marker type='barcode' value='1'>
@@ -86,9 +87,8 @@
                     animation-mixer
                     gltf-model="#asset-1"
                     scale="0.05 0.05 0.05"
-                    sound="src: #birthday-song; on: markerFound">
+                    sound="src: #birthday-song">
             </a-entity>
-<!--            <a-entity id="entity-sound" sound="src: #birthday-song;"></a-entity>-->
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -98,7 +98,7 @@
     <button id="play-button" type="button" onclick="alert('Hello World!')">Play</button>
 </div>
 <script>
-    // const audio = document.querySelector('audio');
+    const entitySound = document.querySelector('[sound]');
     // const promise = audio.play();
     //
     // if (promise !== undefined) {
@@ -113,7 +113,7 @@
     //         // Show something in the UI that the video is muted
     //     });
     // }
-
+    //
     // document.addEventListener('DOMContentLoaded', () => {
     //     const playButton = document.querySelector('#play-button');
     //     const soundEntity = document.querySelector('a-entity[sound]');
@@ -122,6 +122,17 @@
     //         soundEntity.components.sound.playSound();
     //     });
     // });
+    document.addEventListener('markerFound', () => {
+        if (!entitySound.components.sound.isPlaying) {
+            entitySound.components.sound.playSound();
+        }
+        console.log("Marker Found!");
+    })
+
+    document.addEventListener('markerLost', () => {
+        entitySound.components.sound.stopSound();
+        console.log("Marker Lost!");
+    })
 </script>
 </body>
 </html>
