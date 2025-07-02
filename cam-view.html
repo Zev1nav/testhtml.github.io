@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>CamView</title>
+    <title>Have a Bite</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/c-frame/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -15,15 +15,19 @@
             overflow: hidden;
         }
         button {
+            display: none;
             position: fixed;
             top: 20px;
-            left: 50%;
+            right: 0;
             -ms-transform: translateX(-50%);
             transform: translateX(-50%);
+            border: none;
+            border-radius: 25px;
             background-color: red;
             color: white;
             padding: 15px 32px;
             text-align: center;
+            font-size: 24px;
         }
         .container {
             position: relative;
@@ -87,7 +91,7 @@
                     animation-mixer
                     gltf-model="#asset-1"
                     scale="0.05 0.05 0.05"
-                    sound="src: #birthday-song">
+                    sound="src: #birthday-song; on: markerFound">
             </a-entity>
         </a-marker>
 
@@ -98,6 +102,7 @@
     <button id="play-button" type="button" onclick="alert('Hello World!')">Play</button>
 </div>
 <script>
+    const scene = document.querySelector('a-scene');
     const entitySound = document.querySelector('[sound]');
     // const promise = audio.play();
     //
@@ -122,6 +127,17 @@
     //         soundEntity.components.sound.playSound();
     //     });
     // });
+    if (scene.hasLoaded) {
+        showButton()
+    } else {
+        scene.addEventListener('loaded', showButton)
+    }
+
+    function showButton() {
+        const button = document.getElementById('play-button');
+        button.style.display = 'block';
+    }
+
     document.addEventListener('markerFound', () => {
         if (!entitySound.components.sound.isPlaying) {
             entitySound.components.sound.playSound();
