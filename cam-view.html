@@ -23,14 +23,14 @@
             border-radius: 25px;
             background-color: red;
             color: white;
-            padding: 15px 32px;
+            padding: 8px 16px;
             text-align: center;
-            font-size: 24px;
+            font-size: 16px;
         }
         .container {
             position: relative;
             width: 100vw;
-            height: 100dvh;
+            height: 100vh;
         }
         a-scene {
             width: 100%;
@@ -52,6 +52,37 @@
 <body>
 <div class="container">
 <!--<div>-->
+    <script>
+        let entitySound;
+        let playButton;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            entitySound = document.querySelector('[sound]');
+            playButton = document.getElementById('play-button');
+            playButton.onclick = () => {
+                entitySound.components.sound.playSound();
+            }
+        })
+
+        AFRAME.registerComponent('sound-handler', {
+            init: function () {
+                this.el.sceneEl.addEventListener('markerFound', () => {
+                    console.log("Model Loaded!");
+
+                    playButton.style.display = 'block';
+                    if (!entitySound.components.sound.isPlaying) {
+                        entitySound.components.sound.playSound();
+                    }
+                });
+
+                this.el.sceneEl.addEventListener('markerLost', () => {
+                    console.log("Model Unloaded!");
+                    playButton.style.display = 'none';
+                    entitySound.components.sound.stopSound();
+                })
+            }
+        });
+    </script>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene xr-mode-ui="enabled: false;"
              arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
@@ -84,24 +115,27 @@
             </a-entity>
         </a-marker>
 
-        <a-marker id="marker" type='barcode' value='4' emitevents="true">
+        <a-marker id="marker" sound-handler type='barcode' value='4'>
             <a-entity
+                    id="marker-entity"
                     animation-mixer
                     gltf-model="#asset-1"
-                    scale="0.05 0.05 0.05"
-                    sound="src: #birthday-song; on: markerFound">
+                    scale="0.05 0.05 0.05">
             </a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
-
+        <a-entity sound="src: #birthday-song"></a-entity>
     </a-scene>
 <!--    <button id="play-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Play</button>-->
     <button id="play-button" type="button" onclick="alert('Hello World!')">Play</button>
 </div>
 <script>
     const scene = document.querySelector('a-scene');
-    const entitySound = document.querySelector('[sound]');
+    // const entitySound = document.querySelector('[sound]');
+    // const playButton = document.getElementById('play-button');
+    const model = document.querySelector('#marker-entity');
+
     // const promise = audio.play();
     //
     // if (promise !== undefined) {
@@ -125,26 +159,12 @@
     //         soundEntity.components.sound.playSound();
     //     });
     // });
-    if (scene.hasLoaded) {
-        showButton()
-    } else {
-        scene.addEventListener('loaded', showButton)
-    }
-
-    function showButton() {
-        const button = document.getElementById('play-button');
-        button.style.display = 'block';
-    }
 
     document.addEventListener('markerFound', () => {
-        if (!entitySound.components.sound.isPlaying) {
-            entitySound.components.sound.playSound();
-        }
         console.log("Marker Found!");
     })
 
     document.addEventListener('markerLost', () => {
-        entitySound.components.sound.stopSound();
         console.log("Marker Lost!");
     })
 </script>
