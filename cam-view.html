@@ -17,15 +17,21 @@
         button {
             display: none;
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
             border: none;
             border-radius: 25px;
-            background-color: red;
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 8px 16px;
             text-align: center;
             font-size: 16px;
+        }
+        button:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        button:active {
+            transform: translateY(2px);
         }
         .container {
             position: relative;
@@ -57,8 +63,11 @@
         let playButton;
 
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOMContent Loaded!");
+
             entitySound = document.querySelector('[sound]');
             playButton = document.getElementById('play-button');
+
             playButton.onclick = () => {
                 entitySound.components.sound.playSound();
             }
@@ -68,11 +77,8 @@
             init: function () {
                 this.el.sceneEl.addEventListener('markerFound', () => {
                     console.log("Model Loaded!");
-
                     playButton.style.display = 'block';
-                    if (!entitySound.components.sound.isPlaying) {
-                        entitySound.components.sound.playSound();
-                    }
+                    entitySound.components.sound.playSound();
                 });
 
                 this.el.sceneEl.addEventListener('markerLost', () => {
@@ -92,6 +98,7 @@
             <a-asset-item id="asset-1" src="asset/3d/chocolate-splash/Chocolate_Splash_Free_005.gltf"></a-asset-item>
             <a-asset-item id="animated-asset-1" src="asset/3d/survivor/Male Survivor 1 .glb"></a-asset-item>
             <a-asset-item id="animated-asset-2" src="asset/3d/survivor/Male Survivor 2 .glb"></a-asset-item>
+            <a-asset-item id="birthday-cake" src="asset/3d/birthday-cake/scene.gltf"></a-asset-item>
             <audio id="birthday-song" src="asset/sound/happy-birthday.mp3" preload="auto" loop></audio>
         </a-assets>
 
@@ -119,8 +126,8 @@
             <a-entity
                     id="marker-entity"
                     animation-mixer
-                    gltf-model="#asset-1"
-                    scale="0.05 0.05 0.05">
+                    gltf-model="#birthday-cake"
+                    scale="5 5 5">
             </a-entity>
         </a-marker>
 
